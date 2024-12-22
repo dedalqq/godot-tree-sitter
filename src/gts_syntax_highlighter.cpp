@@ -15,8 +15,8 @@ void GTSSyntaxHighlighter::_bind_methods() {
 GTSSyntaxHighlighter::GTSSyntaxHighlighter() {
     this->tree = NULL;
     this->query = NULL;
-    this->parser = ts_parser_new();
-    this->cursor = ts_query_cursor_new();
+    this->parser = NULL;
+    this->cursor = NULL;
 
     this->data = TypedArray<Dictionary>();
 
@@ -27,7 +27,10 @@ GTSSyntaxHighlighter::~GTSSyntaxHighlighter() {
     ts_tree_delete(this->tree);
     ts_parser_delete(this->parser);
     ts_query_delete(this->query);
-    ts_query_cursor_delete(this->cursor);
+    
+    if (this->cursor) {
+        ts_query_cursor_delete(this->cursor);
+    }
 }
 
 void GTSSyntaxHighlighter::set_colors(Dictionary colors) {
@@ -35,6 +38,16 @@ void GTSSyntaxHighlighter::set_colors(Dictionary colors) {
 }
 
 bool GTSSyntaxHighlighter::set_language(String language, String query) {
+    ts_parser_delete(this->parser);
+    ts_query_delete(this->query);
+
+    if (this->cursor) {
+        ts_query_cursor_delete(this->cursor);
+    }
+
+    this->parser = ts_parser_new();
+    this->cursor = ts_query_cursor_new();
+
     const TSLanguage *lang = language_by_name(language); // TODO delete
     
     ts_parser_set_language(this->parser, lang);

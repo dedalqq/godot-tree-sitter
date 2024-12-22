@@ -6,6 +6,13 @@ It project contains godot bindings and SyntaxHighlighter realisation for TestEdi
 
 **Notic**: This is a preliminary version, far from complete and imperfect =)
 
+### build
+
+Via docker
+```bash
+make docker-build
+```
+
 ### Example with SyntaxHighlighter
 
 ```gosot

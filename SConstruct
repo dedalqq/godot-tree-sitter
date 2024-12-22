@@ -5,6 +5,7 @@ import sys
 env = SConscript("godot-cpp/SConstruct")
 
 env.Append(CPPPATH=["tree-sitter/lib/include"])
+env.Append(CPPPATH=["tree-sitter/lib/src/"])
 
 env.Append(CPPPATH=["tree-sitter-go/bindings/c"])
 env.Append(CPPPATH=["tree-sitter-javascript/bindings/c"])
